@@ -1,5 +1,6 @@
-var vertexShader = require('../shaders/vertex.vs');
-var fragmentShader = require('../shaders/fragment.fs');
+const glsl = require('glslify');
+const vertexShader = require('../shaders/vertex.vs');
+const fragmentShader = require('../shaders/fragment.fs');
 
 AFRAME.registerComponent('grid-glitch-material', {
     schema: {
@@ -14,13 +15,11 @@ AFRAME.registerComponent('grid-glitch-material', {
     init: function() {
         const data = this.data;
 
-        console.log(fragmentShader)
         this.material = new THREE.ShaderMaterial({
             uniforms: {
                 time: { value: 0.0 },
                 color: { value: new THREE.Color(data.color) }
             },
-
             vertexShader,
             fragmentShader
         });

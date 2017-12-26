@@ -3,8 +3,14 @@ module.exports = {
 	module: {
 		loaders: [
 			{
-				test: /\.(glsl|fs|vs)$/,
-				loader: 'webpack-glsl-loader'
+				test: /\.(glsl|fs|vs|frag|vert)$/,
+				loader: 'raw-loader', 
+				exclude: /node_modules/
+			},
+			{
+				test: /\.(glsl|fs|vs|frag|vert)$/,
+				loader: 'glslify-loader', 
+				exclude: /node_modules/
 			}
 		]
 	},

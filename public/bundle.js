@@ -82425,8 +82425,9 @@ function setPositions (els, positions) {
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var vertexShader = __webpack_require__(10);
-var fragmentShader = __webpack_require__(11);
+const glsl = __webpack_require__(10);
+const vertexShader = __webpack_require__(11);
+const fragmentShader = __webpack_require__(12);
 
 AFRAME.registerComponent('grid-glitch-material', {
     schema: {
@@ -82441,13 +82442,11 @@ AFRAME.registerComponent('grid-glitch-material', {
     init: function() {
         const data = this.data;
 
-        console.log(fragmentShader)
         this.material = new THREE.ShaderMaterial({
             uniforms: {
                 time: { value: 0.0 },
                 color: { value: new THREE.Color(data.color) }
             },
-
             vertexShader,
             fragmentShader
         });
@@ -82479,13 +82478,29 @@ AFRAME.registerComponent('grid-glitch-material', {
 /* 10 */
 /***/ (function(module, exports) {
 
-module.exports = "varying vec2 vUv;\n\nvoid main() {\n    vUv = uv;\n    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);\n}"
+module.exports = function(strings) {
+  if (typeof strings === 'string') strings = [strings]
+  var exprs = [].slice.call(arguments,1)
+  var parts = []
+  for (var i = 0; i < strings.length-1; i++) {
+    parts.push(strings[i], exprs[i] || '')
+  }
+  parts.push(strings[i])
+  return parts.join('')
+}
+
 
 /***/ }),
 /* 11 */
 /***/ (function(module, exports) {
 
-module.exports = "varying vec2 vUv;\nuniform vec3 color;\nuniform float time;\n\nvoid main() {\n    // Use sin(time), which curves between 0 and 1 over time,\n    // to determine the mix of two colors:\n    //    (a) Dynamic color where 'R' and 'B' channels come\n    //        from a modulus of the UV coordinates.\n    //    (b) Base color.\n    //\n    // The color itself is a vec4 containing RGBA values 0-1.\n    \n    gl_FragColor = mix(\n        vec4(mod(vUv, 0.05) * 20.0, 1.0, 1.0),\n        vec4(color, 1.0),\n        sin(time)\n    );\n}"
+module.exports = "#define GLSLIFY 1\nvarying vec2 vUv;\n\nvoid main() {\n    vUv = uv;\n    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);\n}"
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = "#define GLSLIFY 1\nvarying vec2 vUv;\nuniform vec3 color;\nuniform float time;\n\nvoid main() {\n    // Use sin(time), which curves between 0 and 1 over time,\n    // to determine the mix of two colors:\n    //    (a) Dynamic color where 'R' and 'B' channels come\n    //        from a modulus of the UV coordinates.\n    //    (b) Base color.\n    //\n    // The color itself is a vec4 containing RGBA values 0-1.\n    \n    gl_FragColor = mix(\n        vec4(mod(vUv, 0.05) * 20.0, 1.0, 1.0),\n        vec4(color, 1.0),\n        sin(time)\n    );\n}"
 
 /***/ })
 /******/ ]);
