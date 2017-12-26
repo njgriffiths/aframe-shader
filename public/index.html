@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8"/>
+  <script type="text/javascript" src="bundle.js"></script>
+</head>
+
+<body>
+	<a-scene>
+		<a-assets></a-assets>
+
+		<a-sphere grid-glitch-material="color: blue;"
+			radius="0.5"
+			position="0 1.5 -2">
+		</a-sphere>
+
+		<a-camera 
+			wasd-controls="acceleration: 100;"
+			look-controls="reverseMouseDrag: true;"
+		></a-camera>
+
+		<a-sky color="#333"></a-sky>
+	</a-scene>
+
+</body>
+
+</html>
