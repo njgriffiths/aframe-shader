@@ -82437,7 +82437,7 @@ AFRAME.registerComponent('grid-glitch-material', {
     },
     /**
        * Creates a new THREE.ShaderMaterial using the two shaders defined
-       * in vertex.glsl and fragment.glsl.
+       * in vertex.vs and fragment.fs
     */
     init: function() {
         const data = this.data;
@@ -82500,7 +82500,7 @@ module.exports = "#define GLSLIFY 1\nvarying vec2 vUv;\n\nvoid main() {\n    vUv
 /* 12 */
 /***/ (function(module, exports) {
 
-module.exports = "#define GLSLIFY 1\nvarying vec2 vUv;\nuniform vec3 color;\nuniform float time;\n\nvoid main() {\n    // Use sin(time), which curves between 0 and 1 over time,\n    // to determine the mix of two colors:\n    //    (a) Dynamic color where 'R' and 'B' channels come\n    //        from a modulus of the UV coordinates.\n    //    (b) Base color.\n    //\n    // The color itself is a vec4 containing RGBA values 0-1.\n    \n    gl_FragColor = mix(\n        vec4(mod(vUv, 0.05) * 20.0, 1.0, 1.0),\n        vec4(color, 1.0),\n        sin(time)\n    );\n}"
+module.exports = "#define GLSLIFY 1\nvarying vec2 vUv;\nuniform vec3 color;\nuniform float time;\n\nvoid main() {\n    // Use sin(time), which curves between 0 and 1 over time,\n    // to determine the mix of two colors:\n    //    (a) Dynamic color where 'R' and 'B' channels come\n    //        from a modulus of the UV coordinates.\n    //    (b) Base color.\n    //\n    // The color itself is a vec4 containing RGBA values 0-1.\n    gl_FragColor = mix(\n        vec4(mod(vUv, 0.05) * 20.0, 1.0, 1.0),\n        vec4(color, 1.0),\n        sin(time)\n    );\n}"
 
 /***/ })
 /******/ ]);

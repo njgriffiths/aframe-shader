@@ -10,7 +10,7 @@ AFRAME.registerComponent('grid-glitch-material', {
     },
     /**
        * Creates a new THREE.ShaderMaterial using the two shaders defined
-       * in vertex.glsl and fragment.glsl.
+       * in vertex.vs and fragment.fs
     */
     init: function() {
         const data = this.data;
