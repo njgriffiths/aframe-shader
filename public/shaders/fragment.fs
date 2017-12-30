@@ -1,4 +1,4 @@
-varying vec2 vUv;
+varying vec2 vUv; // vUv is a 2D vector that contains the UV coordinates of the pixel being processed. UV coords go from 0 to 1. This value is always called vUv and is passed in automatically by three.js
 uniform vec3 color;
 uniform float time;
 
